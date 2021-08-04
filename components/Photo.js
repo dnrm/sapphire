@@ -4,7 +4,7 @@ import { Box, Image } from '@chakra-ui/react'
 const Photo = (props) => {
     return (
         <Box h="full" w="full">
-            <Image src={props.src} />
+            <Image src={props.src} alt="Cute picture" />
         </Box>
     )
 }
