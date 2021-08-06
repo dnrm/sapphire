@@ -1,11 +1,11 @@
 import React from 'react';
-import { Grid, Stack, Heading, Flex, Text } from '@chakra-ui/react';
+import { Grid, Stack, Heading, Flex, Text, Button } from '@chakra-ui/react';
 import Photo from './Photo';
 import { useSession } from 'next-auth/client';
+import Link from 'next/link';
 
 const Gallery = () => {
-
-    const [session] = useSession()
+    const [session] = useSession();
 
     return session ? (
         <Grid
@@ -41,8 +41,11 @@ const Gallery = () => {
             <Photo src="https://images.unsplash.com/photo-1627759929352-e4ad6ff6d55e"></Photo>
         </Grid>
     ) : (
-        <Stack
-            py={64}
+        <Flex
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            py={60}
             m={8}
             bgImage={'/unauthorised-bg.png'}
             bgRepeat="no-repeat"
@@ -75,12 +78,17 @@ const Gallery = () => {
                 textAlign="center"
                 fontWeight="regular"
             >
-                You are not Sofi or Dani!!!
+                You are not Sofi or Dani &gt;:c
             </Heading>
             <Text textColor="gray.600" textAlign="center" fontWeight="regular">
-                ...or you are not logged in :P
+                ...or you are not logged in &lt;3
             </Text>
-        </Stack>
+            <Link href="/login">
+                <a textAlign="center">
+                    <Button mt={2} colorScheme="blue" variant="outline">Log In</Button>
+                </a>
+            </Link>
+        </Flex>
     );
 };
 

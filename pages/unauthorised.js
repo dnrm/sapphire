@@ -1,7 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
-import { Divider, Heading, Stack, Button } from '@chakra-ui/react';
+import { Divider, Heading, Stack, Flex, Text } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
+import { signOut } from 'next-auth/client'
 
 const unauthorised = () => {
     return (
@@ -15,14 +16,17 @@ const unauthorised = () => {
             </Head>
             <Navbar />
             <Divider mb="8" />
-            <Stack px={8} id="main">
+            <Flex px={8} id="main" h={'85vh'} justifyContent="center" alignItems="start" direction="column">
                 <Heading
                     fontWeight="regular"
-                    fontSize={{ base: '2em', md: '4em' }}
+                    fontSize={{ base: '1.8em', md: '2em' }}
                 >
-                    You aren&amp;t Sofi or Dani!!!
+                    You aren&apos;t Sofi or Dani :P
                 </Heading>
-            </Stack>
+                <Text fontSize={{ base: '0.9em', md: '1em' }}>
+                    Or maybe you are just make sure to login with the correct account :D
+                </Text>
+            </Flex>
         </>
     );
 };
