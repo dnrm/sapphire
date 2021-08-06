@@ -1,10 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
-import { Divider, Heading, Stack } from '@chakra-ui/react';
+import { Divider, Heading, Stack, Button } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
-import { useSession } from 'next-auth/client';
+import { useSession, getProviders, signIn } from 'next-auth/client';
 
-const login = () => {
+const login = ({ providers }) => {
     return (
         <>
             <Head>
@@ -23,9 +23,25 @@ const login = () => {
                 >
                     Log In
                 </Heading>
+                <Stack>
+                    {Object.values(providers).map((provider) => (
+                        <Stack key={provider.name}>
+                            <Button onClick={() => signIn(provider.id, { callbackUrl: '/' })} h={14}>
+                                Sign in with {provider.name}
+                            </Button>
+                        </Stack>
+                    ))}
+                </Stack>
             </Stack>
         </>
     );
 };
 
 export default login;
+
+export async function getServerSideProps(context) {
+    const providers = await getProviders();
+    return {
+        props: { providers },
+    };
+}

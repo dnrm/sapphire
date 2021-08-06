@@ -40,7 +40,7 @@ const Hero = () => {
                             </svg>
                         </AvatarBadge>
                     </Avatar>
-                    <Text>Sofia Hinojosa</Text>
+                    <Text>Sofi</Text>
                 </Flex>
                 <Flex
                     flexDirection="column"
@@ -77,7 +77,7 @@ const Hero = () => {
                             </svg>
                         </AvatarBadge>
                     </Avatar>
-                    <Text>Daniel Medina</Text>
+                    <Text>Dani</Text>
                 </Flex>
             </Flex>
             <Text
