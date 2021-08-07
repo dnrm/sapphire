@@ -1,6 +1,10 @@
 import { S3 } from 'aws-sdk';
 
-const s3 = new S3();
+const s3 = new S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID_DNRM,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_DNRM
+});
+
 export default function handler(req, res) {
     s3.listObjectsV2(
         {
