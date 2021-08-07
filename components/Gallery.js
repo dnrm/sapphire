@@ -1,8 +1,10 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { Grid, Stack, Heading, Flex, Text, Button } from '@chakra-ui/react';
 import Photo from './Photo';
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
+import Image from 'next/image'
 
 const Gallery = () => {
     const [session] = useSession();
@@ -24,15 +26,25 @@ const Gallery = () => {
         <Grid
             px={8}
             my={8}
-            templateColumns={{ base: 'auto', md: 'repeat(2, 1fr)' }}
+            templateColumns={{ base: 'auto', md: 'repeat(4, 1fr)' }}
             gap="2"
             width="full"
         >
-            {urls
-                ? urls.map((i) => {
-                    
-                  })
-                : null}
+            {urls ? urls.map((i) => {
+                let extension = i.URL.split('.')[5].split('?')[0].toLowerCase();
+                console.log(extension)
+
+                if (extension == 'mp4') {
+                    return (
+                        <video src={i.URL} controls></video>
+                    )
+                } else {
+                    return (
+
+                        <img src={i.URL} loading="lazy" alt="Cute photo" />
+                    )
+                }
+            }) : null}
         </Grid>
     ) : (
         <Flex
