@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Stack, Heading, Flex, Text, Button } from '@chakra-ui/react';
 import Photo from './Photo';
 import { useSession } from 'next-auth/client';
@@ -6,6 +6,19 @@ import Link from 'next/link';
 
 const Gallery = () => {
     const [session] = useSession();
+    const [urls, setUrls] = useState();
+
+    useEffect(() => {
+        if (session) {
+            const getUrls = async () => {
+                const response = await fetch('/api/get-urls');
+                const json = await response.json();
+                setUrls(json);
+            };
+
+            getUrls();
+        }
+    }, [session]);
 
     return session ? (
         <Grid
@@ -15,30 +28,11 @@ const Gallery = () => {
             gap="2"
             width="full"
         >
-            <Photo src="https://images.unsplash.com/photo-1605947464625-316923642808"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1611635473151-88f447ed3140"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1627759929352-e4ad6ff6d55e"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1605947464625-316923642808"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1611635473151-88f447ed3140"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1627759929352-e4ad6ff6d55e"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1605947464625-316923642808"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1611635473151-88f447ed3140"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1627759929352-e4ad6ff6d55e"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1605947464625-316923642808"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1611635473151-88f447ed3140"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1627759929352-e4ad6ff6d55e"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1605947464625-316923642808"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1611635473151-88f447ed3140"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1627759929352-e4ad6ff6d55e"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1605947464625-316923642808"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1611635473151-88f447ed3140"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1627759929352-e4ad6ff6d55e"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1605947464625-316923642808"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1611635473151-88f447ed3140"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1627759929352-e4ad6ff6d55e"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1605947464625-316923642808"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1611635473151-88f447ed3140"></Photo>
-            <Photo src="https://images.unsplash.com/photo-1627759929352-e4ad6ff6d55e"></Photo>
+            {urls
+                ? urls.map((i) => {
+                    
+                  })
+                : null}
         </Grid>
     ) : (
         <Flex
@@ -84,8 +78,10 @@ const Gallery = () => {
                 ...or you are not logged in &lt;3
             </Text>
             <Link href="/login">
-                <a textAlign="center">
-                    <Button mt={2} colorScheme="blue" variant="outline">Log In</Button>
+                <a>
+                    <Button mt={2} colorScheme="blue" variant="outline">
+                        Log In
+                    </Button>
                 </a>
             </Link>
         </Flex>

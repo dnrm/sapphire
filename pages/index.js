@@ -3,13 +3,13 @@ import Head from 'next/head';
 import Photo from '../components/Photo';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import Gallery from '../components/Gallery'
+import Gallery from '../components/Gallery';
 
 export default function Home() {
     return (
         <>
             <Head>
-                <title>Cute Photos | sapphire.medina.dev</title>
+                <title>Cute Photos | sapphire</title>
                 <link
                     rel="shortcut icon"
                     href="/heart-icon.png"
@@ -20,10 +20,13 @@ export default function Home() {
                     content="Cute photos of Sofi and Dani"
                 />
             </Head>
+            {/* Navigation bar */}
             <Navbar />
             <Divider />
+            {/* Hero section with our profile pictures */}
             <Hero />
             <Divider />
+            {/* Actual photo gallery */}
             <Gallery />
         </>
     );
