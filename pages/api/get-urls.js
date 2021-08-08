@@ -2,20 +2,24 @@ import { S3 } from 'aws-sdk';
 
 const s3 = new S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID_DNRM,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_DNRM
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_DNRM,
 });
 
 export default function handler(req, res) {
+    console.log('start');
     s3.listObjectsV2(
         {
             Bucket: process.env.S3_BUCKET,
-            Prefix: process.env.S3_PREFIX
+            Prefix: process.env.S3_PREFIX,
         },
         (err, data) => {
-            if (err)
+            console.log('err or data');
+            if (err) {
+                console.log(err);
                 return res.status(500).send({
                     message: 'Error getting objects',
                 });
+            }
 
             let urls = [];
 
@@ -32,8 +36,8 @@ export default function handler(req, res) {
 
             if (urls === []) {
                 res.status(404).send({
-                    message: 'No images'
-                })
+                    message: 'No images',
+                });
             }
 
             return res.status(200).send(urls);
