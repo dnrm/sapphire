@@ -8,7 +8,7 @@ const s3 = new S3({
 
 export default async function handler(req, res) {
 
-    const session = await getSession();
+    const session = await getSession({ req });
     if (!session) {
         return res.status(403).send({
             message: 'Unauthorised, please sign in.'
