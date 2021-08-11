@@ -10,7 +10,7 @@ export default function handler(req, res) {
     s3.listObjectsV2(
         {
             Bucket: process.env.S3_BUCKET,
-            Prefix: process.env.S3_PREFIX,
+            Prefix: process.env.S3_PREFIX || null,
         },
         (err, data) => {
             console.log('err or data');
