@@ -31,7 +31,7 @@ const Gallery = () => {
             width="full"
         >
             {urls ? urls.map((i) => {
-                let extension = i.URL.split('.')[5].split('?')[0].toLowerCase();
+                let extension = i.URL.split('.')[4].split('?')[0].toLowerCase();
                 console.log(extension)
 
                 if (extension == 'mp4') {
