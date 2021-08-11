@@ -1,11 +1,20 @@
 import { S3 } from 'aws-sdk';
+import { getSession } from 'next-auth/client'
 
 const s3 = new S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID_DNRM,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_DNRM,
 });
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
+
+    const session = await getSession();
+    if (!session) {
+        return res.status(403).send({
+            message: 'Unauthorised, please sign in.'
+        })
+    }
+
     console.log('start');
     s3.listObjectsV2(
         {
