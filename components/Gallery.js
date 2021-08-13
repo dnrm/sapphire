@@ -1,19 +1,26 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { Grid, Stack, Heading, Flex, Text, Button } from '@chakra-ui/react';
-import Photo from './Photo';
+import { useToasts } from 'react-toast-notifications'
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
-import Image from 'next/image'
 
 const Gallery = () => {
     const [session] = useSession();
     const [urls, setUrls] = useState();
+    const { addToast } = useToasts()
 
     useEffect(() => {
         if (session) {
             const getUrls = async () => {
                 const response = await fetch('/api/get-urls');
+                if (!response.ok) {
+                    addToast('Unable to load images :c', {
+                        appearance: 'error',
+                        autoDismiss: true
+                    })
+                }
+
                 const json = await response.json();
                 setUrls(json);
             };

@@ -10,10 +10,12 @@ import {
     Button,
 } from '@chakra-ui/react';
 import { useDropzone } from 'react-dropzone';
+import { useToasts } from 'react-toast-notifications'
 
 const Upload = () => {
     const [image, setImage] = useState();
     const [file, setFile] = useState()
+    const { addToast } = useToasts()
 
     const onDrop = useCallback((acceptedFiles) => {
         console.log(acceptedFiles);
@@ -28,36 +30,52 @@ const Upload = () => {
     const uploadImage = async (e) => {
         e.preventDefault();
         console.log(image);
-        const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                file: file.name,
-            }),
-        });
-        const { url, fields } = await res.json();
 
-        const data = new FormData();
+        try {
+            const res = await fetch('/api/upload-image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    file: file.name,
+                }),
+            });
+    
+            const { url, fields } = await res.json();
+    
+            const data = new FormData();
+    
+            console.log(file.name);
+    
+            Object.entries({ ...fields, file }).forEach(([key, value]) => {
+                data.append(key, value);
+            });
+    
+            console.log(data);
 
-        console.log(file.name);
+            const upload = await fetch(url, {
+                method: 'POST',
+                body: data,
+            });
 
-        Object.entries({ ...fields, file }).forEach(([key, value]) => {
-            data.append(key, value);
-        });
-
-        console.log(data);
-
-        const upload = await fetch(url, {
-            method: 'POST',
-            body: data,
-        });
-
-        if (upload.ok) {
-            console.log('Uploaded successfully!');
-        } else {
-            console.error('Upload failed.');
+            if (upload.ok) {
+                addToast('Image uploaded!', {
+                    appearance: 'success',
+                    autoDismiss: true
+                })
+            } else {
+                addToast('Oh no! Couldn\'t upload image', {
+                    appearance: 'error',
+                    autoDismiss: true
+                })
+            }
+        } catch (e) {
+            console.log(e)
+            addToast('Oh no! Couldn\'t upload image', {
+                appearance: 'error',
+                autoDismiss: true
+            })
         }
     };
 

@@ -38,6 +38,9 @@ export default async function handler(req, res) {
                 key: req.body.file,
             },
             Expires: 60,
+            Conditions: [
+                ['starts-with', '$Content-Type', 'image/']
+            ]
         },
         (err, data) => {
             if (err) {
