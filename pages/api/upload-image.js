@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     const session = await getSession({ req });
     if (!session) {
         return res.status(403).send({
-            message: unauthorisedMessages[Math.floor(Math.random(0, unauthorisedMessages.length))],
+            message: unauthorisedMessages[Math.floor(Math.random() * unauthorisedMessages.length)],
         });
     }
 
