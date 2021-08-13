@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { useDropzone } from 'react-dropzone';
 import { useToasts } from 'react-toast-notifications';
+import router from 'next/router';
 
 const Upload = () => {
     const [image, setImage] = useState();
@@ -64,6 +65,8 @@ const Upload = () => {
                     appearance: 'success',
                     autoDismiss: true,
                 });
+
+                router.push('/')
             } else {
                 addToast("Oh no! Couldn't upload image", {
                     appearance: 'error',
@@ -76,6 +79,7 @@ const Upload = () => {
                 appearance: 'error',
                 autoDismiss: true,
             });
+            router.push('/')
         }
     };
 
