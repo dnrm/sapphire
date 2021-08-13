@@ -8,7 +8,7 @@ const s3 = new S3({
 export default async function handler(req, res) {
     console.log(req.body)
     s3.createPresignedPost({
-        Bucket: process.env.BUCKET,
+        Bucket: process.env.TEMP_BUCKET,
         Fields: {
             key: req.body.file
         },
