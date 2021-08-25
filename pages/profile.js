@@ -27,7 +27,7 @@ const profile = ({ session }) => {
                 <Stack id="user-data" py={8}>
                     <Stack>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <Image src={session.user.image} alt="Profile image" w={24} rounded="full" borderColor="gray.200" borderWidth="4px" />
+                        <Image src={session.user.image} alt="Profile image" w={24} rounded="full" borderWidth="4px" />
                     </Stack>
                     <Heading m={0} fontSize={{ base: '1em', md: '2em' }}>
                         {session.user.name}
@@ -40,7 +40,7 @@ const profile = ({ session }) => {
                         {session.user.email}
                     </Text>
                 </Stack>
-                <Button bgColor="gray.200" onClick={() => signOut({ callbackUrl: '/' })}>
+                <Button onClick={() => signOut({ callbackUrl: '/' })}>
                     Sign Out
                 </Button>
             </Stack>

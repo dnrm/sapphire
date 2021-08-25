@@ -8,15 +8,18 @@ import {
     Flex,
     Image,
     Button,
+    Progress,
 } from '@chakra-ui/react';
 import { useDropzone } from 'react-dropzone';
 import { useToasts } from 'react-toast-notifications';
 import router from 'next/router';
+import { useColorModeValue } from '@chakra-ui/color-mode';
 
 const Upload = () => {
     const [image, setImage] = useState();
     const [file, setFile] = useState();
     const { addToast } = useToasts();
+    const [uploading, setUploading] = useState(false);
 
     const onDrop = useCallback((acceptedFiles) => {
         console.log(acceptedFiles);
@@ -28,9 +31,13 @@ const Upload = () => {
         onDrop,
     });
 
+    const bg = useColorModeValue('white', 'gray.600');
+
     const uploadImage = async (e) => {
         e.preventDefault();
         console.log(image);
+
+        setUploading(true);
 
         try {
             const res = await fetch('/api/upload-image', {
@@ -61,12 +68,15 @@ const Upload = () => {
             });
 
             if (upload.ok) {
-                addToast('Image uploaded! It should appear in the gallery in about a minute.', {
-                    appearance: 'success',
-                    autoDismiss: true,
-                });
+                addToast(
+                    'Image uploaded! It should appear in the gallery in about a minute.',
+                    {
+                        appearance: 'success',
+                        autoDismiss: true,
+                    }
+                );
 
-                router.push('/')
+                router.push('/');
             } else {
                 addToast("Oh no! Couldn't upload image", {
                     appearance: 'error',
@@ -79,7 +89,7 @@ const Upload = () => {
                 appearance: 'error',
                 autoDismiss: true,
             });
-            router.push('/')
+            router.push('/');
         }
     };
 
@@ -101,11 +111,15 @@ const Upload = () => {
                         justifyContent="center"
                         alignItems="center"
                         direction="column"
-                        background={isDragActive ? 'telegram.100' : 'white'}
-                        textColor={isDragActive ? 'gray.500' : 'gray.500'}
+                        backgroundColor={bg}
+                        textColor="gray.400"
                         rounded="2xl"
                     >
-                        <Input {...getInputProps()} display="none" />
+                        <Input
+                            {...getInputProps()}
+                            display="none"
+                            required={true}
+                        />
                         {image ? (
                             <>
                                 <Flex
@@ -145,13 +159,19 @@ const Upload = () => {
                     {image ? (
                         <Stack pb={16}>
                             <Divider my={8} />
-                            <Button
-                                variant="solid"
-                                type="submit"
-                                colorScheme="teal"
-                            >
-                                Upload
-                            </Button>
+                            {uploading ? (
+                                <Stack p={2}>
+                                    <Progress size="lg" isIndeterminate />
+                                </Stack>
+                            ) : (
+                                <Button
+                                    variant="solid"
+                                    type="submit"
+                                    colorScheme="teal"
+                                >
+                                    Uploading
+                                </Button>
+                            )}
                         </Stack>
                     ) : null}
                 </form>

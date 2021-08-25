@@ -1,14 +1,22 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
-import { Grid, Stack, Heading, Flex, Text, Button } from '@chakra-ui/react';
-import { useToasts } from 'react-toast-notifications'
+import {
+    Grid,
+    Skeleton,
+    Heading,
+    Flex,
+    Text,
+    Button,
+    GridItem,
+} from '@chakra-ui/react';
+import { useToasts } from 'react-toast-notifications';
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
 
 const Gallery = () => {
     const [session] = useSession();
     const [urls, setUrls] = useState();
-    const { addToast } = useToasts()
+    const { addToast } = useToasts();
 
     useEffect(() => {
         if (session) {
@@ -17,8 +25,8 @@ const Gallery = () => {
                 if (!response.ok) {
                     addToast('Unable to load images :c', {
                         appearance: 'error',
-                        autoDismiss: true
-                    })
+                        autoDismiss: true,
+                    });
                 }
 
                 const json = await response.json();
@@ -37,21 +45,26 @@ const Gallery = () => {
             gap="2"
             width="full"
         >
-            {urls ? urls.map((i) => {
-                let extension = i.URL.split('.')[4].split('?')[0].toLowerCase();
-                console.log(extension)
+            {urls ? (
+                urls.map((i) => {
+                    let extension = i.URL.split('.')[4]
+                        .split('?')[0]
+                        .toLowerCase();
+                    console.log(extension);
 
-                if (extension == 'mp4') {
-                    return (
-                        <video src={i.URL} controls></video>
-                    )
-                } else {
-                    return (
-
-                        <img src={i.URL} loading="lazy" alt="Cute photo" />
-                    )
-                }
-            }) : null}
+                    if (extension == 'mp4') {
+                        return <video src={i.URL} controls></video>;
+                    } else {
+                        return (
+                            <img src={i.URL} loading="lazy" alt="Cute photo" />
+                        );
+                    }
+                })
+            ) : (
+                <GridItem colSpan={4}>
+                    <Skeleton colSpan={4} h={'100vh'} />
+                </GridItem>
+            )}
         </Grid>
     ) : (
         <Flex

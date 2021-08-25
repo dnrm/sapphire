@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import {
     Flex,
     Heading,
@@ -15,14 +14,13 @@ import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useSession } from 'next-auth/client';
 import { useColorMode } from '@chakra-ui/react'
 
-const Navbar = (props) => {
+const Navbar = () => {
     const [session] = useSession();
-    const router = useRouter();
 
     const { colorMode, toggleColorMode } = useColorMode()
 
     return (
-        <Flex px={5} py={3} justifyContent="space-between" alignItems="center">
+        <Flex px={5} py={3} justifyContent="space-between" alignItems="center" h={'16'}>
             <Link href="/">
                 <a>
                     <Stack direction="row" alignItems="center">
@@ -45,7 +43,6 @@ const Navbar = (props) => {
                             <a>
                                 <Hyperlink
                                     fontSize={{ base: '0.8em', md: '1em' }}
-                                    textColor="gray.700"
                                 >
                                     Upload
                                 </Hyperlink>
@@ -66,9 +63,6 @@ const Navbar = (props) => {
                             </Flex>
                         </a>
                     </Link>
-                    <Button onClick={toggleColorMode} p={3} rounded={'md'} ml={4} alignItems="center" justifyContent="center" bgColor="gray.600">
-                        { colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                    </Button>
                 </Flex>
             ) : (
                 <Flex alignItems="center" justifyContent="center">
@@ -83,9 +77,6 @@ const Navbar = (props) => {
                             </Button>
                         </a>
                     </Link>
-                    <Button onClick={toggleColorMode} p={3} rounded={'md'} ml={2} alignItems="center" justifyContent="center" bgColor="gray.600">
-                        { colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                    </Button>
                 </Flex>
             )}
         </Flex>
