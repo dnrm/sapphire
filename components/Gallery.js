@@ -50,13 +50,26 @@ const Gallery = () => {
                     let extension = i.URL.split('.')[4]
                         .split('?')[0]
                         .toLowerCase();
-                    console.log(extension);
 
                     if (extension == 'mp4') {
-                        return <video src={i.URL} controls></video>;
+                        return (
+                            <Link href={`/p/${i.Key}`}>
+                                <a>
+                                    <video src={i.URL} controls></video>
+                                </a>
+                            </Link>
+                        );
                     } else {
                         return (
-                            <img src={i.URL} loading="lazy" alt="Cute photo" />
+                            <Link href={`/p/${i.Key}`}>
+                                <a>
+                                    <img
+                                        src={i.URL}
+                                        loading="lazy"
+                                        alt="Cute photo"
+                                    />
+                                </a>
+                            </Link>
                         );
                     }
                 })

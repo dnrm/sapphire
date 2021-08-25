@@ -15,13 +15,11 @@ export default async function handler(req, res) {
         })
     }
 
-    console.log('start');
     s3.listObjectsV2(
         {
             Bucket: process.env.S3_BUCKET,
         },
         (err, data) => {
-            console.log('err or data');
             if (err) {
                 console.log(err);
                 return res.status(500).send({
