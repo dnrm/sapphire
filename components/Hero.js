@@ -81,7 +81,7 @@ const Hero = () => {
                 </Flex>
             </Flex>
             <Text
-                textColor="#3d3d3d"
+                textColor="gray.400"
                 textAlign="center"
                 fontStyle="italic"
                 fontSize={{ base: '1.5em', md: '2em' }}

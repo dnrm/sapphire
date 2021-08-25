@@ -9,26 +9,37 @@ import {
     Stack,
     Avatar,
     Text,
-    Link as Hyperlink
+    Link as Hyperlink,
 } from '@chakra-ui/react';
+import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useSession } from 'next-auth/client';
+import { useColorMode } from '@chakra-ui/react'
 
 const Navbar = (props) => {
     const [session] = useSession();
     const router = useRouter();
+
+    const { colorMode, toggleColorMode } = useColorMode()
 
     return (
         <Flex px={5} py={3} justifyContent="space-between" alignItems="center">
             <Link href="/">
                 <a>
                     <Stack direction="row" alignItems="center">
-                        <Heading fontWeight="regular" fontSize={{ base: '1em', md: '1.5em' }}>Cute Photos</Heading>
-                        <Badge fontSize={{ base: '0.5em', md: '0.7em' }}>With Sofi and Dani</Badge>
+                        <Heading
+                            fontWeight="regular"
+                            fontSize={{ base: '1em', md: '1.5em' }}
+                        >
+                            Cute Photos
+                        </Heading>
+                        <Badge fontSize={{ base: '0.5em', md: '0.7em' }}>
+                            With Sofi and Dani
+                        </Badge>
                     </Stack>
                 </a>
             </Link>
             {session ? (
-                <Flex dir="row">
+                <Flex dir="row" alignItems="center" justifyContent="center">
                     <Flex justifyContent="center" alignItems="center" mr={6}>
                         <Link href="/upload">
                             <a>
@@ -55,20 +66,27 @@ const Navbar = (props) => {
                             </Flex>
                         </a>
                     </Link>
+                    <Button onClick={toggleColorMode} p={3} rounded={'md'} ml={4} alignItems="center" justifyContent="center" bgColor="gray.600">
+                        { colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                    </Button>
                 </Flex>
             ) : (
-                <Link href="/login">
-                    <a>
-                        <Button
-                            boxShadow="xl"
-                            variant="solid"
-                            colorScheme="teal"
-                            color="white"
-                        >
-                            Log In
-                        </Button>
-                    </a>
-                </Link>
+                <Flex alignItems="center" justifyContent="center">
+                    <Link href="/login">
+                        <a>
+                            <Button
+                                boxShadow="xl"
+                                variant="solid"
+                                colorScheme="teal"
+                            >
+                                Log In
+                            </Button>
+                        </a>
+                    </Link>
+                    <Button onClick={toggleColorMode} p={3} rounded={'md'} ml={2} alignItems="center" justifyContent="center" bgColor="gray.600">
+                        { colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                    </Button>
+                </Flex>
             )}
         </Flex>
     );
