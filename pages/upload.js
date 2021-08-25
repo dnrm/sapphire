@@ -61,7 +61,7 @@ const Upload = () => {
             });
 
             if (upload.ok) {
-                addToast('Image uploaded!', {
+                addToast('Image uploaded! It should appear in the gallery in about a minute.', {
                     appearance: 'success',
                     autoDismiss: true,
                 });

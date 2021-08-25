@@ -31,6 +31,7 @@ export default async function handler(req, res) {
     }
 
     console.log(req.body);
+    console.log(req.body.file)
     s3.createPresignedPost(
         {
             Bucket: process.env.TEMP_BUCKET,
@@ -38,9 +39,7 @@ export default async function handler(req, res) {
                 key: req.body.file,
             },
             Expires: 60,
-            Conditions: [
-                ['starts-with', '$Content-Type', 'image/']
-            ]
+            
         },
         (err, data) => {
             if (err) {
