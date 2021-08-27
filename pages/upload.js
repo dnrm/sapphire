@@ -14,6 +14,8 @@ import { useDropzone } from 'react-dropzone';
 import { useToasts } from 'react-toast-notifications';
 import router from 'next/router';
 import { useColorModeValue } from '@chakra-ui/color-mode';
+import Head from 'next/head';
+import { getSession } from 'next-auth/client';
 
 const Upload = () => {
     const [image, setImage] = useState();
@@ -95,6 +97,9 @@ const Upload = () => {
 
     return (
         <>
+            <Head>
+                <title>Upload | sapphire</title>
+            </Head>
             <Navbar />
             <Divider mb="8" />
             <Stack px={8} id="main">
@@ -115,10 +120,7 @@ const Upload = () => {
                         textColor="gray.400"
                         rounded="2xl"
                     >
-                        <Input
-                            {...getInputProps()}
-                            display="none"
-                        />
+                        <Input {...getInputProps()} display="none" />
                         {image ? (
                             <>
                                 <Flex
@@ -180,3 +182,16 @@ const Upload = () => {
 };
 
 export default Upload;
+
+export async function getServerSideProps(context) {
+    const session = await getSession(context)
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+}
