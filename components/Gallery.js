@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import {
     Grid,
     Skeleton,
@@ -9,33 +9,13 @@ import {
     Button,
     GridItem,
 } from '@chakra-ui/react';
-import { useToasts } from 'react-toast-notifications';
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
+import { useImageContext } from '../context/Images';
 
 const Gallery = () => {
     const [session] = useSession();
-    const [urls, setUrls] = useState();
-    const { addToast } = useToasts();
-
-    useEffect(() => {
-        if (session) {
-            const getUrls = async () => {
-                const response = await fetch('/api/get-urls');
-                if (!response.ok) {
-                    addToast('Unable to load images :c', {
-                        appearance: 'error',
-                        autoDismiss: true,
-                    });
-                }
-
-                const json = await response.json();
-                setUrls(json);
-            };
-
-            getUrls();
-        }
-    }, [session]);
+    const { urls } = useImageContext();
 
     return session ? (
         <Grid
@@ -50,10 +30,9 @@ const Gallery = () => {
                     let extension = i.URL.split('.')[4]
                         .split('?')[0]
                         .toLowerCase();
-
                     if (extension == 'mp4') {
                         return (
-                            <Link href={`/p/${i.Key}`}>
+                            <Link href={`/p/${i.Key}`} key={i.Key}>
                                 <a>
                                     <video src={i.URL} controls></video>
                                 </a>
@@ -61,7 +40,7 @@ const Gallery = () => {
                         );
                     } else {
                         return (
-                            <Link href={`/p/${i.Key}`}>
+                            <Link href={`/p/${i.Key}`} key={i.Key}>
                                 <a>
                                     <img
                                         src={i.URL}
