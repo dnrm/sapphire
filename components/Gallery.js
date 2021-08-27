@@ -12,10 +12,13 @@ import {
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
 import { useImageContext } from '../context/Images';
+import { useColorMode, useColorModeValue } from '@chakra-ui/color-mode';
 
 const Gallery = () => {
     const [session] = useSession();
     const { urls } = useImageContext();
+
+    const textColor = useColorModeValue("gray.600", "gray.200")
 
     return session ? (
         <Grid
@@ -76,7 +79,7 @@ const Gallery = () => {
                 justifyContent="center"
                 opacity="1"
             >
-                <Flex h={28} w={28} textColor="gray.600">
+                <Flex h={28} w={28} textColor={textColor}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"
@@ -92,13 +95,13 @@ const Gallery = () => {
                 </Flex>
             </Flex>
             <Heading
-                textColor="gray.600"
+                textColor={textColor}
                 textAlign="center"
                 fontWeight="regular"
             >
                 You are not Sofi or Dani &gt;:c
             </Heading>
-            <Text textColor="gray.600" textAlign="center" fontWeight="regular">
+            <Text textColor={textColor} textAlign="center" fontWeight="regular">
                 ...or you are not logged in &lt;3
             </Text>
             <Link href="/login">
