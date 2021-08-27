@@ -118,7 +118,6 @@ const Upload = () => {
                         <Input
                             {...getInputProps()}
                             display="none"
-                            required={true}
                         />
                         {image ? (
                             <>
