@@ -15,7 +15,6 @@ export default async function handler(req, res) {
         });
     }
 
-    console.log(req.body);
     if (!req.body.key) {
         return res.status(404).send({
             message: 'Photo not found',
