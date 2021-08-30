@@ -1,9 +1,11 @@
-import { Grid, Divider } from '@chakra-ui/react';
+import { Grid, Divider, Heading, Badge } from '@chakra-ui/react';
 import Head from 'next/head';
 import Photo from '../components/Photo';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Gallery from '../components/Gallery';
+
+const DISABLED = true
 
 export default function Home() {
     return (
@@ -27,7 +29,11 @@ export default function Home() {
             <Hero />
             <Divider />
             {/* Actual photo gallery */}
-            <Gallery />
+            {DISABLED ? (
+                <Heading py={16} textAlign="center">Site disabled until <Badge fontSize="1em" colorScheme="red">01/09/21</Badge></Heading>
+            ) : (
+                <Gallery />
+            )}
         </>
     );
 }
