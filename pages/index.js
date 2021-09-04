@@ -5,8 +5,6 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Gallery from '../components/Gallery';
 
-const DISABLED = true
-
 export default function Home() {
     return (
         <>
@@ -29,11 +27,7 @@ export default function Home() {
             <Hero />
             <Divider />
             {/* Actual photo gallery */}
-            {DISABLED ? (
-                <Heading py={16} textAlign="center">Site disabled until <Badge fontSize="1em" colorScheme="red">01/09/21</Badge></Heading>
-            ) : (
-                <Gallery />
-            )}
+            <Gallery />
         </>
     );
 }
