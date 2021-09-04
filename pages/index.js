@@ -20,13 +20,10 @@ export default function Home() {
                     content="Cute photos of Sofi and Dani"
                 />
             </Head>
-            {/* Navigation bar */}
             <Navbar />
             <Divider />
-            {/* Hero section with our profile pictures */}
             <Hero />
             <Divider />
-            {/* Actual photo gallery */}
             <Gallery />
         </>
     );
