@@ -14,9 +14,9 @@ const Hero = () => {
                         name="Sofia Hinojosa"
                         borderColor="gray.200"
                         borderRadius="full"
-                        borderWidth="8px"
-                        h={{ base: '48', md: '56' }}
-                        w={{ base: '48', md: '56' }}
+                        borderWidth={{ base: '4px', md: '8px' }}
+                        h={{ base: '32', md: '56' }}
+                        w={{ base: '32', md: '56' }}
                         m="2"
                         src="https://cdn.medina.dev/s/380C12A6-2A7C-4022-8BE9-AEFA1639EB37%202.JPG"
                     >
@@ -51,9 +51,9 @@ const Hero = () => {
                         name="Daniel Medina"
                         borderColor="gray.200"
                         borderRadius="full"
-                        borderWidth="8px"
-                        h={{ base: '48', md: '56' }}
-                        w={{ base: '48', md: '56' }}
+                        borderWidth={{ base: '4px', md: '8px' }}
+                        h={{ base: '32', md: '56' }}
+                        w={{ base: '32', md: '56' }}
                         m="2"
                         src="https://cdn.medina.dev/dnrm.jpg"
                     >

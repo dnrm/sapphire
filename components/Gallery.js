@@ -18,11 +18,11 @@ const Gallery = () => {
     const [session] = useSession();
     const { urls } = useImageContext();
 
-    const textColor = useColorModeValue("gray.600", "gray.200")
+    const textColor = useColorModeValue('gray.600', 'gray.200');
 
     return session ? (
         <Grid
-            px={8}
+            px={{ base: 4, md: 8 }}
             my={8}
             templateColumns={{ base: 'auto', md: 'repeat(4, 1fr)' }}
             gap="2"
@@ -67,7 +67,8 @@ const Gallery = () => {
             alignItems="center"
             justifyContent="center"
             py={60}
-            m={8}
+            px={4}
+            m={{ base: 4, md: 8 }}
             bgImage={'/unauthorised-bg.png'}
             bgRepeat="no-repeat"
             bgSize="cover"

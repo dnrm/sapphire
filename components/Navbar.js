@@ -12,15 +12,21 @@ import {
 } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useSession } from 'next-auth/client';
-import { useColorMode } from '@chakra-ui/react'
+import { useColorMode } from '@chakra-ui/react';
 
 const Navbar = () => {
     const [session] = useSession();
 
-    const { colorMode, toggleColorMode } = useColorMode()
+    const { colorMode, toggleColorMode } = useColorMode();
 
     return (
-        <Flex px={5} py={3} justifyContent="space-between" alignItems="center" h={'16'}>
+        <Flex
+            px={5}
+            py={3}
+            justifyContent="space-between"
+            alignItems="center"
+            h={'16'}
+        >
             <Link href="/">
                 <a>
                     <Stack direction="row" alignItems="center">
@@ -30,7 +36,7 @@ const Navbar = () => {
                         >
                             Cute Photos
                         </Heading>
-                        <Badge fontSize={{ base: '0.5em', md: '0.7em' }}>
+                        <Badge fontSize={{ base: '0.5em', md: '0.7em' }} display={{ base: 'none', md: 'inline'}}>
                             With Sofi and Dani
                         </Badge>
                     </Stack>
@@ -56,6 +62,7 @@ const Navbar = () => {
                                     fontSize={{ base: '0.8em', md: '1em' }}
                                     mr={4}
                                     textColor="gray"
+                                    display={{ base: 'none', md: 'block' }}
                                 >
                                     {session.user.email}
                                 </Text>
