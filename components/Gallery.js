@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useContext } from 'react';
 import {
     Grid,
@@ -13,6 +12,7 @@ import { useSession } from 'next-auth/client';
 import Link from 'next/link';
 import { useImageContext } from '../context/Images';
 import { useColorMode, useColorModeValue } from '@chakra-ui/color-mode';
+import Image from 'next/image';
 
 const Gallery = () => {
     const [session] = useSession();
@@ -45,7 +45,15 @@ const Gallery = () => {
                         return (
                             <Link href={`/p/${i.Key}`} key={i.Key}>
                                 <a>
-                                    <img
+                                    <Image
+                                        unoptimized={
+                                            process.env.ENVIRONMENT !==
+                                            'PRODUCTION'
+                                        }
+                                        height="100"
+                                        width="100"
+                                        objectFit="cover"
+                                        layout="responsive"
                                         src={i.URL}
                                         loading="lazy"
                                         alt="Cute photo"
