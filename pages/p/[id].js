@@ -56,12 +56,26 @@ const Photo = () => {
                 p={8}
                 gap={4}
             >
-                <Flex height="100vh" width="100%" position="relative" alignItems="start" justifyContent="start">
+                <Flex
+                    height="100vh"
+                    width="100%"
+                    position="relative"
+                    alignItems="start"
+                    justifyContent="start"
+                >
                     {url ? (
-                        <Image alt="Image" objectFit="contain" layout="fill" src={url}></Image>
+                        <Image
+                            alt="Image"
+                            objectFit="contain"
+                            layout="fill"
+                            src={url}
+                        ></Image>
                     ) : null}
                 </Flex>
-                <Divider py={2} orientation="vertical" />
+                <Divider
+                    py={2}
+                    orientation={{ base: 'horizontal', md: 'vertical' }}
+                />
                 <Stack>
                     <Heading>Photo</Heading>
                     <Flex justifyContent="start" alignItems="start">
