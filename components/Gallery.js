@@ -46,10 +46,6 @@ const Gallery = () => {
                             <Link href={`/p/${i.Key}`} key={i.Key}>
                                 <a>
                                     <Image
-                                        unoptimized={
-                                            process.env.ENVIRONMENT !==
-                                            'PRODUCTION'
-                                        }
                                         height="100"
                                         width="100"
                                         objectFit="cover"
