@@ -36,7 +36,10 @@ const Navbar = () => {
                         >
                             Cute Photos
                         </Heading>
-                        <Badge fontSize={{ base: '0.5em', md: '0.7em' }} display={{ base: 'none', md: 'inline'}}>
+                        <Badge
+                            fontSize={{ base: '0.5em', md: '0.7em' }}
+                            display={{ base: 'none', md: 'inline' }}
+                        >
                             With Sofi and Dani
                         </Badge>
                     </Stack>
@@ -45,14 +48,10 @@ const Navbar = () => {
             {session ? (
                 <Flex dir="row" alignItems="center" justifyContent="center">
                     <Flex justifyContent="center" alignItems="center" mr={6}>
-                        <Link href="/upload">
-                            <a>
-                                <Hyperlink
-                                    fontSize={{ base: '0.8em', md: '1em' }}
-                                >
-                                    Upload
-                                </Hyperlink>
-                            </a>
+                        <Link href="/upload" passHref>
+                            <Hyperlink fontSize={{ base: '0.8em', md: '1em' }}>
+                                Upload
+                            </Hyperlink>
                         </Link>
                     </Flex>
                     <Link href="/profile">

@@ -17,7 +17,7 @@ import Image from 'next/image';
 import Head from 'next/head';
 import { useImageContext } from '../../context/Images';
 
-const Photo = () => {
+const Photo = ({ photo }) => {
     const [likes, setLikes] = useState(0);
     const [favourites, setFavourites] = useState(0);
     const [saved, setSaved] = useState(0);
@@ -28,16 +28,15 @@ const Photo = () => {
 
     useEffect(() => {
         if (urls) {
-            const index = urls.findIndex((url) => {
-                return url.Key.includes(router.query.id);
+            const signedUrl = urls.find((url) => {
+                return url.Key.includes(photo);
             });
-            setUrl(urls[index]);
+            const { URL } = signedUrl
+            setUrl(URL)
         }
-    }, [router.query.id, urls]);
+    }, [photo, urls]);
 
     const buttonColor = useColorModeValue('white', 'gray.700');
-
-    console.log(url)
 
     return (
         <div>
@@ -67,7 +66,7 @@ const Photo = () => {
                             alt="Image"
                             objectFit="contain"
                             layout="fill"
-                            src={url || '/blank.jpg'}
+                            src={url}
                         ></Image>
                     ) : null}
                 </Flex>
@@ -159,3 +158,11 @@ const Photo = () => {
 };
 
 export default Photo;
+
+export async function getServerSideProps({ params }) {
+    return {
+        props: {
+            photo: params.id
+        }
+    }
+}
