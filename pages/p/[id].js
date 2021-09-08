@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Navbar from '../../components/Navbar';
 import {
     Divider,
@@ -14,37 +14,36 @@ import {
 import { useRouter } from 'next/router';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import Image from 'next/image';
+import Head from 'next/head';
+import { useImageContext } from '../../context/Images';
 
 const Photo = () => {
     const [likes, setLikes] = useState(0);
     const [favourites, setFavourites] = useState(0);
     const [saved, setSaved] = useState(0);
-    const [url, setUrl] = useState();
+    const [url, setUrl] = useState('');
+
+    const { urls } = useImageContext();
     const router = useRouter();
+
+    useEffect(() => {
+        if (urls) {
+            const index = urls.findIndex((url) => {
+                return url.Key.includes(router.query.id);
+            });
+            setUrl(urls[index]);
+        }
+    }, [router.query.id, urls]);
 
     const buttonColor = useColorModeValue('white', 'gray.700');
 
-    useEffect(() => {
-        const get = async () => {
-            const response = await fetch('/api/get-url', {
-                method: 'POST',
-                body: JSON.stringify({
-                    key: router.query.id,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            const { url } = await response.json();
-            setUrl(url);
-        };
-
-        get();
-    }, [router.query.id]);
+    console.log(url)
 
     return (
         <div>
+            <Head>
+                <title>{router.query.id}</title>
+            </Head>
             <Navbar />
             <Divider />
             <Grid
@@ -63,12 +62,12 @@ const Photo = () => {
                     alignItems="start"
                     justifyContent="start"
                 >
-                    {url ? (
+                    {url != '' ? (
                         <Image
                             alt="Image"
                             objectFit="contain"
                             layout="fill"
-                            src={url}
+                            src={url || 'a'}
                         ></Image>
                     ) : null}
                 </Flex>
