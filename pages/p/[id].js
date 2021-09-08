@@ -21,7 +21,7 @@ const Photo = () => {
     const [likes, setLikes] = useState(0);
     const [favourites, setFavourites] = useState(0);
     const [saved, setSaved] = useState(0);
-    const [url, setUrl] = useState('');
+    const [url, setUrl] = useState();
 
     const { urls } = useImageContext();
     const router = useRouter();
@@ -62,12 +62,12 @@ const Photo = () => {
                     alignItems="start"
                     justifyContent="start"
                 >
-                    {url != '' ? (
+                    {url ? (
                         <Image
                             alt="Image"
                             objectFit="contain"
                             layout="fill"
-                            src={url || 'a'}
+                            src={url || '/blank.jpg'}
                         ></Image>
                     ) : null}
                 </Flex>
