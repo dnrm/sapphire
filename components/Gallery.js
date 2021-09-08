@@ -7,12 +7,14 @@ import {
     Text,
     Button,
     GridItem,
+    Stack
 } from '@chakra-ui/react';
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
 import { useImageContext } from '../context/Images';
 import { useColorMode, useColorModeValue } from '@chakra-ui/color-mode';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const Gallery = () => {
     const [session] = useSession();
@@ -43,19 +45,25 @@ const Gallery = () => {
                         );
                     } else {
                         return (
-                            <Link href={`/p/${i.Key}`} key={i.Key}>
-                                <a>
-                                    <Image
-                                        height="100"
-                                        width="100"
-                                        objectFit="cover"
-                                        layout="responsive"
-                                        src={i.URL}
-                                        loading="lazy"
-                                        alt="Cute photo"
-                                    />
-                                </a>
-                            </Link>
+                            <motion.div layoutId="image">
+                                <Stack>
+                                    <Link href={`/p/${i.Key}`} key={i.Key}>
+                                        <a>
+                                            <Image
+                                                height="100"
+                                                width="100"
+                                                objectFit="cover"
+                                                layout="responsive"
+                                                src={i.URL}
+                                                loading="lazy"
+                                                alt="Cute photo"
+                                                placeholder="blur"
+                                                blurDataURL="/placeholder.png"
+                                            />
+                                        </a>
+                                    </Link>
+                                </Stack>
+                            </motion.div>
                         );
                     }
                 })

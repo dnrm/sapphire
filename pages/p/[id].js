@@ -16,6 +16,7 @@ import { useColorModeValue } from '@chakra-ui/color-mode';
 import Image from 'next/image';
 import Head from 'next/head';
 import { useImageContext } from '../../context/Images';
+import { motion } from 'framer-motion';
 
 const Photo = ({ photo }) => {
     const [likes, setLikes] = useState(0);
@@ -31,8 +32,8 @@ const Photo = ({ photo }) => {
             const signedUrl = urls.find((url) => {
                 return url.Key.includes(photo);
             });
-            const { URL } = signedUrl
-            setUrl(URL)
+            const { URL } = signedUrl;
+            setUrl(URL);
         }
     }, [photo, urls]);
 
@@ -62,12 +63,18 @@ const Photo = ({ photo }) => {
                     justifyContent="start"
                 >
                     {url ? (
-                        <Image
-                            alt="Image"
-                            objectFit="contain"
-                            layout="fill"
-                            src={url}
-                        ></Image>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            <Image
+                                alt="Image"
+                                objectFit="contain"
+                                layout="fill"
+                                src={url}
+                            ></Image>
+                        </motion.div>
                     ) : null}
                 </Flex>
                 <Divider
@@ -162,7 +169,7 @@ export default Photo;
 export async function getServerSideProps({ params }) {
     return {
         props: {
-            photo: params.id
-        }
-    }
+            photo: params.id,
+        },
+    };
 }
