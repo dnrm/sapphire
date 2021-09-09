@@ -18,7 +18,7 @@ const Hero = () => {
                         h={{ base: '32', md: '56' }}
                         w={{ base: '32', md: '56' }}
                         m="2"
-                        src="https://cdn.medina.dev/s/380C12A6-2A7C-4022-8BE9-AEFA1639EB37%202.JPG"
+                        src="https://res.cloudinary.com/dnrm/image/upload/c_fill,g_face,h_750,r_0,w_750/v1631149875/sofi.jpg"
                     >
                         <AvatarBadge
                             borderColor="papayawhip"
@@ -55,7 +55,7 @@ const Hero = () => {
                         h={{ base: '32', md: '56' }}
                         w={{ base: '32', md: '56' }}
                         m="2"
-                        src="https://cdn.medina.dev/dnrm.jpg"
+                        src="https://res.cloudinary.com/dnrm/image/upload/c_fill,g_face,h_750,r_0,w_750/v1631149875/dani.jpg"
                     >
                         <AvatarBadge
                             borderColor="papayawhip"
