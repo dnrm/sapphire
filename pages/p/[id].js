@@ -58,9 +58,9 @@ const Photo = ({ photo }) => {
                 <Flex
                     height="100vh"
                     width="100%"
-                    position="relative"
                     alignItems="start"
                     justifyContent="start"
+                    style={{ position: 'relative'}}
                 >
                     {url ? (
                         <motion.div
@@ -72,6 +72,7 @@ const Photo = ({ photo }) => {
                                 alt="Image"
                                 objectFit="contain"
                                 layout="fill"
+                                loading="eager"
                                 src={url}
                             ></Image>
                         </motion.div>

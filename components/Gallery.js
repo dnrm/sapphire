@@ -7,7 +7,8 @@ import {
     Text,
     Button,
     GridItem,
-    Stack
+    Stack,
+    Link as StyledLink,
 } from '@chakra-ui/react';
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
@@ -45,13 +46,17 @@ const Gallery = () => {
                         );
                     } else {
                         return (
-                            <motion.div layoutId="image">
-                                <Stack>
-                                    <Link href={`/p/${i.Key}`} key={i.Key}>
-                                        <a>
+                            <Stack w="full">
+                                <motion.div layoutId="image">
+                                    <Link
+                                        href={`/p/${i.Key}`}
+                                        key={i.Key}
+                                        passHref
+                                    >
+                                        <StyledLink w="full">
                                             <Image
-                                                height="100"
                                                 width="100"
+                                                height="100"
                                                 objectFit="cover"
                                                 layout="responsive"
                                                 src={i.URL}
@@ -60,10 +65,10 @@ const Gallery = () => {
                                                 placeholder="blur"
                                                 blurDataURL="/placeholder.png"
                                             />
-                                        </a>
+                                        </StyledLink>
                                     </Link>
-                                </Stack>
-                            </motion.div>
+                                </motion.div>
+                            </Stack>
                         );
                     }
                 })
