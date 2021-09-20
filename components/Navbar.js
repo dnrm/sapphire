@@ -17,11 +17,13 @@ import {
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { useSession } from 'next-auth/client';
-import { useColorMode } from '@chakra-ui/react';
+import { useColorModeValue } from '@chakra-ui/react';
 import { signOut } from 'next-auth/client';
 
 const Navbar = () => {
     const [session] = useSession();
+
+    const iconColor = useColorModeValue('gray.900', 'gray.300')
 
     return (
         <Flex
@@ -66,7 +68,6 @@ const Navbar = () => {
                                         md: '0.9em',
                                     }}
                                     mr={4}
-                                    textColor="gray.300"
                                     display={{
                                         base: 'none',
                                         md: 'block',
@@ -87,10 +88,10 @@ const Navbar = () => {
                                             py={2}
                                         >
                                             <Icon
-                                                stroke="gray.300"
                                                 mr={1}
                                                 h={5}
                                                 w={5}
+                                                stroke={iconColor}
                                             >
                                                 <svg fill="none">
                                                     <path
@@ -107,7 +108,6 @@ const Navbar = () => {
                                                     md: '0.9em',
                                                 }}
                                                 mr={4}
-                                                textColor="gray.300"
                                                 display={{
                                                     base: 'none',
                                                     md: 'block',
@@ -129,9 +129,9 @@ const Navbar = () => {
                                             py={2}
                                         >
                                             <Icon
-                                                stroke="gray.300"
                                                 mr={1}
                                                 h={5}
+                                                stroke={iconColor}
                                                 w={5}
                                             >
                                                 <svg
@@ -152,7 +152,6 @@ const Navbar = () => {
                                                     md: '0.9em',
                                                 }}
                                                 mr={4}
-                                                textColor="gray.300"
                                                 display={{
                                                     base: 'none',
                                                     md: 'block',
@@ -174,10 +173,10 @@ const Navbar = () => {
                                             py={2}
                                         >
                                             <Icon
-                                                stroke="gray.300"
                                                 mr={1}
                                                 h={5}
                                                 w={5}
+                                                stroke={iconColor}
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +196,6 @@ const Navbar = () => {
                                                     md: '0.9em',
                                                 }}
                                                 mr={4}
-                                                textColor="gray.300"
                                                 display={{
                                                     base: 'none',
                                                     md: 'block',
@@ -216,7 +214,7 @@ const Navbar = () => {
                                     px={0}
                                     py={2}
                                 >
-                                    <Icon stroke="gray.300" mr={1} h={5} w={5}>
+                                    <Icon stroke={iconColor} mr={1} h={5} w={5}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
@@ -235,7 +233,6 @@ const Navbar = () => {
                                             md: '0.9em',
                                         }}
                                         mr={4}
-                                        textColor="gray.300"
                                         display={{
                                             base: 'none',
                                             md: 'block',

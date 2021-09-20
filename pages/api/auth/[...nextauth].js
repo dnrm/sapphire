@@ -35,4 +35,5 @@ export default NextAuth({
             }
         },
     },
+    // database: process.env.MONGODB_URL
 });
