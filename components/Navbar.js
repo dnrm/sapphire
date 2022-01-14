@@ -23,7 +23,7 @@ import { signOut } from 'next-auth/client';
 const Navbar = () => {
     const [session] = useSession();
 
-    const iconColor = useColorModeValue('gray.900', 'gray.300')
+    const iconColor = useColorModeValue('gray.900', 'gray.300');
 
     return (
         <Flex
@@ -109,7 +109,6 @@ const Navbar = () => {
                                                 }}
                                                 mr={4}
                                                 display={{
-                                                    base: 'none',
                                                     md: 'block',
                                                 }}
                                             >
@@ -153,7 +152,6 @@ const Navbar = () => {
                                                 }}
                                                 mr={4}
                                                 display={{
-                                                    base: 'none',
                                                     md: 'block',
                                                 }}
                                             >
@@ -197,11 +195,56 @@ const Navbar = () => {
                                                 }}
                                                 mr={4}
                                                 display={{
-                                                    base: 'none',
                                                     md: 'block',
                                                 }}
                                             >
                                                 Upload
+                                            </Text>
+                                        </Flex>
+                                    </a>
+                                </Link>
+                            </MenuItem>
+                            <MenuItem py={0}>
+                                <Link href="/list">
+                                    <a>
+                                        <Flex
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            px={0}
+                                            py={2}
+                                        >
+                                            <Icon
+                                                mr={1}
+                                                h={5}
+                                                w={5}
+                                                stroke={iconColor}
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    className="h-6 w-6"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth={2}
+                                                        d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                                                    />
+                                                </svg>
+                                            </Icon>
+                                            <Text
+                                                fontSize={{
+                                                    base: '0.8em',
+                                                    md: '0.9em',
+                                                }}
+                                                mr={4}
+                                                display={{
+                                                    md: 'block',
+                                                }}
+                                            >
+                                                List View
                                             </Text>
                                         </Flex>
                                     </a>
@@ -234,7 +277,6 @@ const Navbar = () => {
                                         }}
                                         mr={4}
                                         display={{
-                                            base: 'none',
                                             md: 'block',
                                         }}
                                     >
