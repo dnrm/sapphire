@@ -46,28 +46,22 @@ const Gallery = () => {
                         );
                     } else {
                         return (
-                            <Stack w="full">
-                                <motion.div layoutId="image">
-                                    <Link
-                                        href={`/p/${i.Key}`}
-                                        key={i.Key}
-                                        passHref
-                                    >
-                                        <StyledLink w="full">
-                                            <Image
-                                                width="100"
-                                                height="100"
-                                                objectFit="cover"
-                                                layout="responsive"
-                                                src={i.URL}
-                                                loading="lazy"
-                                                alt="Cute photo"
-                                                placeholder="blur"
-                                                blurDataURL="/placeholder.png"
-                                            />
-                                        </StyledLink>
-                                    </Link>
-                                </motion.div>
+                            <Stack w="full" display={'block'}>
+                                <Link href={`/p/${i.Key}`} key={i.Key} passHref>
+                                    <StyledLink w="full" h="full">
+                                        <Image
+                                            width="100"
+                                            height="100"
+                                            objectFit="cover"
+                                            layout="responsive"
+                                            src={i.URL}
+                                            loading="lazy"
+                                            alt="Cute photo"
+                                            placeholder="blur"
+                                            blurDataURL="/placeholder.png"
+                                        />
+                                    </StyledLink>
+                                </Link>
                             </Stack>
                         );
                     }
