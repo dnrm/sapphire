@@ -38,7 +38,6 @@ const Saved = ({ photo }) => {
                 <List spacing={3} p={8}>
                     {urls &&
                         urls.map((url) => {
-                            console.log(url);
                             return (
                                 <ListItem
                                     key={url.Key}
