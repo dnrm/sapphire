@@ -60,7 +60,7 @@ const Photo = ({ photo }) => {
                     width="100%"
                     alignItems="start"
                     justifyContent="start"
-                    style={{ position: 'relative'}}
+                    style={{ position: 'relative' }}
                 >
                     {url ? (
                         <motion.div
@@ -74,9 +74,20 @@ const Photo = ({ photo }) => {
                                 layout="fill"
                                 loading="eager"
                                 src={url}
+                                unoptimized={true}
+                                placeholder="blur"
+                                blurDataURL="/placeholder.png"
                             ></Image>
                         </motion.div>
-                    ) : null}
+                    ) : (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            <Skeleton height="100vh" />
+                        </motion.div>
+                    )}
                 </Flex>
                 <Divider
                     py={2}

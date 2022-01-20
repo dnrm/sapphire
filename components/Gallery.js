@@ -53,6 +53,7 @@ const Gallery = () => {
                                             width="100"
                                             height="100"
                                             objectFit="cover"
+                                            unoptimized={true}
                                             layout="responsive"
                                             src={i.URL}
                                             loading="lazy"
