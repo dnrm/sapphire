@@ -45,7 +45,13 @@ const Gallery = () => {
                             </Link>
                         );
                     } else {
-                        return <GalleryImage src={i.URL} key={i.Key} />;
+                        return (
+                            <GalleryImage
+                                src={i.URL}
+                                address={i.Key}
+                                key={i.Key}
+                            />
+                        );
                     }
                 })
             ) : (

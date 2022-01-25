@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Skeleton, Link as StyledLink, Stack, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 
-const GalleryImage = ({ src, key }) => {
-
+const GalleryImage = ({ src, address }) => {
     const [showImage, setShowImage] = useState(false);
 
     const onImageLoaded = () => {
@@ -13,7 +12,7 @@ const GalleryImage = ({ src, key }) => {
     return (
         <Skeleton isLoaded={showImage}>
             <Stack w="full" display={'block'} h={'96'}>
-                <Link href={`/p/${key}`} key={key} passHref>
+                <Link href={`/p/${address}`} key={address} passHref>
                     <StyledLink>
                         <Image
                             src={src}
