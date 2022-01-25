@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     Grid,
     Skeleton,
@@ -8,14 +8,14 @@ import {
     Button,
     GridItem,
     Stack,
+    Image,
     Link as StyledLink,
 } from '@chakra-ui/react';
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
 import { useImageContext } from '../context/Images';
-import { useColorMode, useColorModeValue } from '@chakra-ui/color-mode';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { useColorModeValue } from '@chakra-ui/color-mode';
+import GalleryImage from './GalleryImage';
 
 const Gallery = () => {
     const [session] = useSession();
@@ -45,26 +45,7 @@ const Gallery = () => {
                             </Link>
                         );
                     } else {
-                        return (
-                            <Stack w="full" display={'block'}>
-                                <Link href={`/p/${i.Key}`} key={i.Key} passHref>
-                                    <StyledLink w="full" h="full">
-                                        <Image
-                                            width="100"
-                                            height="100"
-                                            objectFit="cover"
-                                            unoptimized={true}
-                                            layout="responsive"
-                                            src={i.URL}
-                                            loading="lazy"
-                                            alt="Cute photo"
-                                            placeholder="blur"
-                                            blurDataURL="/placeholder.png"
-                                        />
-                                    </StyledLink>
-                                </Link>
-                            </Stack>
-                        );
+                        return <GalleryImage src={i.URL} key={i.Key} />;
                     }
                 })
             ) : (

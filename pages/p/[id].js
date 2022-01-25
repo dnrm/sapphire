@@ -10,10 +10,10 @@ import {
     Icon,
     Text,
     Stack,
+    Image
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useColorModeValue } from '@chakra-ui/color-mode';
-import Image from 'next/image';
 import Head from 'next/head';
 import { useImageContext } from '../../context/Images';
 import { motion } from 'framer-motion';
@@ -68,16 +68,11 @@ const Photo = ({ photo }) => {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.2 }}
                         >
-                            <Image
+                            {/*eslint-disable-next-line @next/next/no-img-element */}
+                            <img
                                 alt="Image"
-                                objectFit="contain"
-                                layout="fill"
-                                loading="eager"
                                 src={url}
-                                unoptimized={true}
-                                placeholder="blur"
-                                blurDataURL="/placeholder.png"
-                            ></Image>
+                            ></img>
                         </motion.div>
                     ) : (
                         <motion.div
