@@ -10,13 +10,14 @@ import {
     Icon,
     Text,
     Stack,
-    Image
+    Image,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import Head from 'next/head';
 import { useImageContext } from '../../context/Images';
 import { motion } from 'framer-motion';
+import { getSession } from 'next-auth/client';
 
 const Photo = ({ photo }) => {
     const [likes, setLikes] = useState(0);
@@ -69,10 +70,7 @@ const Photo = ({ photo }) => {
                             transition={{ delay: 0.2 }}
                         >
                             {/*eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                                alt="Image"
-                                src={url}
-                            ></img>
+                            <img alt="Image" src={url}></img>
                         </motion.div>
                     ) : (
                         <motion.div
@@ -173,10 +171,22 @@ const Photo = ({ photo }) => {
 
 export default Photo;
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps(req) {
+    const session = await getSession(req);
+    console.log('session: ', session);
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/unauthorised',
+                permanent: true,
+            },
+        };
+    }
+
     return {
         props: {
-            photo: params.id,
+            photo: req.params.id,
         },
     };
 }

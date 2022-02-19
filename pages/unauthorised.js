@@ -24,7 +24,7 @@ const unauthorised = () => {
                     You aren&apos;t Sofi or Dani :P
                 </Heading>
                 <Text fontSize={{ base: '0.9em', md: '1em' }}>
-                    Or maybe you are just make sure to login with the correct account :D
+                    Or maybe you are, just make sure to login with the correct account :D
                 </Text>
             </Flex>
         </>
