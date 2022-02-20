@@ -24,6 +24,8 @@ const Photo = ({ photo }) => {
     const [favourites, setFavourites] = useState(0);
     const [saved, setSaved] = useState(0);
     const [url, setUrl] = useState();
+    const [fetching, setFetching] = useState(false);
+    const [error, setError] = useState(false);
 
     const { urls } = useImageContext();
     const router = useRouter();
@@ -39,6 +41,29 @@ const Photo = ({ photo }) => {
     }, [photo, urls]);
 
     const buttonColor = useColorModeValue('white', 'gray.700');
+
+    const downloadImage = (url) => {
+        if (!url) {
+            throw new Error(
+                'Resource URL not provided! You need to provide one'
+            );
+        }
+        setFetching(true);
+        fetch(url)
+            .then((response) => response.blob())
+            .then((blob) => {
+                setFetching(false);
+                const blobURL = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobURL;
+                a.style = 'display: none';
+
+                if (req.params.id && req.params.id) a.download = req.params.id;
+                document.body.appendChild(a);
+                a.click();
+            })
+            .catch(() => setError(true));
+    };
 
     return (
         <div>
@@ -116,29 +141,6 @@ const Photo = ({ photo }) => {
                             </Text>
                         </Button>
                         <Button
-                            mx={1}
-                            colorScheme="yellow"
-                            variant="solid"
-                            fontSize="1.2em"
-                            textColor="white"
-                            onClick={() => {
-                                setFavourites(favourites + 1);
-                            }}
-                        >
-                            <Icon viewBox="0 0 20 20" color={buttonColor}>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-5 w-5"
-                                    fill="currentColor"
-                                >
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                            </Icon>
-                            <Text textColor={buttonColor} pl={1}>
-                                {favourites}
-                            </Text>
-                        </Button>
-                        <Button
                             textColor="white"
                             mx={1}
                             colorScheme="teal"
@@ -160,6 +162,34 @@ const Photo = ({ photo }) => {
                             </Icon>
                             <Text textColor={buttonColor} pl={1}>
                                 {saved}
+                            </Text>
+                        </Button>
+                        <Button
+                            mx={1}
+                            colorScheme="yellow"
+                            variant="solid"
+                            fontSize="1.2em"
+                            textColor="white"
+                            onClick={() => {
+                                downloadImage(url);
+                            }}
+                        >
+                            <Icon viewBox="0 0 20 20" color={buttonColor}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                            </Icon>
+                            <Text textColor={buttonColor} pl={1}>
+                                {favourites}
                             </Text>
                         </Button>
                     </Flex>
