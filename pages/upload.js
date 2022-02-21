@@ -170,7 +170,7 @@ const Upload = () => {
                                     type="submit"
                                     colorScheme="teal"
                                 >
-                                    Uploading
+                                    Upload
                                 </Button>
                             )}
                         </Stack>

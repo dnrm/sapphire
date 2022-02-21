@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Navbar from '../../components/Navbar';
+import Suggestions from '../../components/Suggestions';
 import {
     Divider,
     Heading,
@@ -11,6 +12,7 @@ import {
     Text,
     Stack,
     Image,
+    GridItem,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useColorModeValue } from '@chakra-ui/color-mode';
@@ -21,7 +23,6 @@ import { getSession } from 'next-auth/client';
 
 const Photo = ({ photo }) => {
     const [likes, setLikes] = useState(0);
-    const [favourites, setFavourites] = useState(0);
     const [saved, setSaved] = useState(0);
     const [url, setUrl] = useState();
     const [fetching, setFetching] = useState(false);
@@ -43,26 +44,7 @@ const Photo = ({ photo }) => {
     const buttonColor = useColorModeValue('white', 'gray.700');
 
     const downloadImage = (url) => {
-        if (!url) {
-            throw new Error(
-                'Resource URL not provided! You need to provide one'
-            );
-        }
-        setFetching(true);
-        fetch(url)
-            .then((response) => response.blob())
-            .then((blob) => {
-                setFetching(false);
-                const blobURL = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = blobURL;
-                a.style = 'display: none';
-
-                if (req.params.id && req.params.id) a.download = req.params.id;
-                document.body.appendChild(a);
-                a.click();
-            })
-            .catch(() => setError(true));
+        window.open(url);
     };
 
     return (
@@ -76,17 +58,16 @@ const Photo = ({ photo }) => {
                 w={'100%'}
                 gridTemplateColumns={{
                     base: 'repeat(1, 1fr)',
-                    lg: '50% auto 49%',
+                    lg: 'repeat(3, 1fr)',
                 }}
                 p={8}
-                gap={4}
+                gap={8}
             >
-                <Flex
-                    height="100vh"
-                    width="100%"
+                <GridItem
+                    colSpan={1}
+                    maxH="full"
                     alignItems="start"
                     justifyContent="start"
-                    style={{ position: 'relative' }}
                 >
                     {url ? (
                         <motion.div
@@ -106,25 +87,27 @@ const Photo = ({ photo }) => {
                             <Skeleton height="100vh" />
                         </motion.div>
                     )}
-                </Flex>
-                <Divider
-                    py={2}
-                    orientation={{ base: 'horizontal', md: 'vertical' }}
-                />
-                <Stack>
-                    <Heading>Photo</Heading>
+                </GridItem>
+                <GridItem colSpan={{ base: 1, md: 2 }}>
+                    <Divider
+                        py={2}
+                        orientation={{ base: 'horizontal', md: 'vertical' }}
+                    />
+                    <Heading>{router.query.id}</Heading>
+                    <Stack py={4}>
+                        <Divider />
+                    </Stack>
                     <Flex justifyContent="start" alignItems="start">
                         <Button
                             mr={1}
                             colorScheme="red"
-                            variant="solid"
+                            variant="outline"
                             fontSize="1.2em"
-                            textColor="white"
                             onClick={() => {
                                 setLikes(likes + 1);
                             }}
                         >
-                            <Icon viewBox="0 0 20 20" color={buttonColor}>
+                            <Icon viewBox="0 0 20 20" color={'inherit'}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="currentColor"
@@ -136,21 +119,20 @@ const Photo = ({ photo }) => {
                                     />
                                 </svg>
                             </Icon>
-                            <Text textColor={buttonColor} pl={1}>
+                            <Text textColor={'inherit'} pl={1}>
                                 {likes}
                             </Text>
                         </Button>
                         <Button
-                            textColor="white"
                             mx={1}
                             colorScheme="teal"
-                            variant="solid"
+                            variant="outline"
                             fontSize="1.2em"
                             onClick={() => {
                                 setSaved(saved + 1);
                             }}
                         >
-                            <Icon viewBox="0 0 20 20" color={buttonColor}>
+                            <Icon viewBox="0 0 20 20" color={'inherit'}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-5 w-5"
@@ -160,21 +142,20 @@ const Photo = ({ photo }) => {
                                     <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
                                 </svg>
                             </Icon>
-                            <Text textColor={buttonColor} pl={1}>
+                            <Text textColor={'inherit'} pl={1}>
                                 {saved}
                             </Text>
                         </Button>
                         <Button
                             mx={1}
-                            colorScheme="yellow"
-                            variant="solid"
+                            colorScheme="purple"
+                            variant="outline"
                             fontSize="1.2em"
-                            textColor="white"
                             onClick={() => {
                                 downloadImage(url);
                             }}
                         >
-                            <Icon viewBox="0 0 20 20" color={buttonColor}>
+                            <Icon viewBox="0 0 20 20" color={'inherit'}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-5 w-5"
@@ -188,13 +169,18 @@ const Photo = ({ photo }) => {
                                     />
                                 </svg>
                             </Icon>
-                            <Text textColor={buttonColor} pl={1}>
-                                {favourites}
+                            <Text
+                                textColor={'inherit'}
+                                pl={1}
+                                fontWeight="normal"
+                            >
+                                Download
                             </Text>
                         </Button>
                     </Flex>
-                </Stack>
+                </GridItem>
             </Grid>
+            <Suggestions />
         </div>
     );
 };
