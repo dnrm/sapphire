@@ -8,31 +8,18 @@ import { useRouter } from 'next/router';
 const Suggestions = () => {
     const { urls } = useImageContext();
     const [randomElements, setRandomElements] = useState([]);
-    const router = useRouter();
 
     useEffect(() => {
-        console.log(randomElements.length);
-
         if (urls) {
-            if (randomElements.length < 4) {
-                setRandomElements([]);
-                getRandom(urls);
-            } else {
-                setRandomElements([]);
-                getRandom(urls);
+            const temp = [];
+            for (let i = 0; i < 4; i++) {
+                const randomIndex = Math.floor(Math.random() * urls.length);
+                temp.push(urls[randomIndex]);
             }
+            console.log(temp);
+            setRandomElements(temp);
         }
-    }, [router.query.id]);
-
-    const getRandom = (urls) => {
-        const temp = [];
-        for (let i = 0; i < 4; i++) {
-            const randomIndex = Math.floor(Math.random() * urls.length);
-            temp.push(urls[randomIndex]);
-        }
-        console.log(temp);
-        setRandomElements(temp.slice(0, 4));
-    };
+    }, []);
 
     return (
         <Stack px={{ base: 4, md: 8 }} pb={10}>
