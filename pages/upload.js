@@ -11,7 +11,7 @@ import {
     Progress,
 } from '@chakra-ui/react';
 import { useDropzone } from 'react-dropzone';
-import { useToasts } from 'react-toast-notifications';
+import toast, { Toaster } from 'react-hot-toast';
 import router from 'next/router';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import Head from 'next/head';
@@ -20,7 +20,6 @@ import { getSession } from 'next-auth/client';
 const Upload = () => {
     const [image, setImage] = useState();
     const [file, setFile] = useState();
-    const { addToast } = useToasts();
     const [uploading, setUploading] = useState(false);
 
     const onDrop = useCallback((acceptedFiles) => {
@@ -70,27 +69,17 @@ const Upload = () => {
             });
 
             if (upload.ok) {
-                addToast(
-                    'Image uploaded! It should appear in the gallery in about a minute.',
-                    {
-                        appearance: 'success',
-                        autoDismiss: true,
-                    }
+                toast.success(
+                    'Image uploaded! It should appear in the gallery in about a minute.'
                 );
 
                 router.push('/');
             } else {
-                addToast("Oh no! Couldn't upload image", {
-                    appearance: 'error',
-                    autoDismiss: true,
-                });
+                toast.error("Oh no! Couldn't upload image");
             }
         } catch (e) {
             console.log(e);
-            addToast("Oh no! Couldn't upload image", {
-                appearance: 'error',
-                autoDismiss: true,
-            });
+            toast.error("Oh no! Couldn't upload image");
             router.push('/');
         }
     };
@@ -101,6 +90,7 @@ const Upload = () => {
                 <title>Upload | sapphire</title>
             </Head>
             <Navbar />
+            <Toaster />
             <Divider mb="8" />
             <Stack px={8} id="main">
                 <form onSubmit={uploadImage}>
