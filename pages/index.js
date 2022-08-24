@@ -1,13 +1,9 @@
-import { Grid, Divider, Heading, Badge } from '@chakra-ui/react';
+import { Grid, Text, Stack } from '@chakra-ui/react';
 import Head from 'next/head';
-import Photo from '../components/Photo';
-import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import Gallery from '../components/Gallery';
 
 export default function Home() {
     return (
-        <>
+        <div className="gradient">
             <Head>
                 <title>Cute Photos | sapphire</title>
                 <link
@@ -17,14 +13,26 @@ export default function Home() {
                 />
                 <meta
                     name="description"
-                    content="Cute photos of Sofi and Dani"
+                    content="This website has closed... Things come and go in life, and this is one of them. Thank you for your support."
                 />
             </Head>
-            <Navbar />
-            <Divider />
-            <Hero />
-            <Divider />
-            <Gallery />
-        </>
+            <Grid
+                placeItems={'center'}
+                textColor="gray.400"
+                textAlign="center"
+                fontWeight={'normal'}
+                fontStyle="italic"
+                height={'100vh'}
+                fontSize={{ base: '1.5em', md: '2em' }}
+            >
+                <Stack>
+                    <Text px={5}>
+                        This website has closed... Things come and go in life,
+                        and this is one of them. Thank you for your support.
+                    </Text>
+                    <Text fontSize={{ base: 'sm', lg: 'lg' }}>Love, Dani</Text>
+                </Stack>
+            </Grid>
+        </div>
     );
 }

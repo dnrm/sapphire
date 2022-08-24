@@ -3,6 +3,7 @@ import { Provider, useSession } from 'next-auth/client';
 import DarkModeToggle from '../components/DarkModeToggle';
 import ImageWrapper from '../context/Images';
 import { AnimateSharedLayout } from 'framer-motion';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
     return (

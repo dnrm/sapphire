@@ -14,3 +14,12 @@ a {
 * {
     box-sizing: border-box;
 }
+
+.gradient {
+    background: rgb(38, 42, 54);
+    background: radial-gradient(
+        circle,
+        rgba(38, 42, 54, 1) 5%,
+        rgba(32, 36, 46, 1) 100%
+    );
+}
